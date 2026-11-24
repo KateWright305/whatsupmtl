@@ -7,6 +7,25 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     @groups = Group.all
   end
+
+  def new
+    @activity = Activity.new
+  end
+
+  def create
+    @activity = Activity.new(activity_params)
+    if @activity.save
+      redirect_to activity_path(@activity)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def activity_params
+    params.require(:activity).permit(:name, :description, :url, :location, :price, :img, :starts_at, :ends_at)
+  end
 end
 
 def create
