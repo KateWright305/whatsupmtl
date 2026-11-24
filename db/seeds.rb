@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Activity.find_or_create_by!(name: "Line Dance Class",
+  description: "HonkyTonk sur l'Avenue Mont-Royal Est. Whiskey, bières, cocktails et ambiance festive! Cours de danse en ligne & Musique Country 🤠🥃🪩🍺🌵",
+  url: "https://botteswhiskey.com/",
+  location: "2047 Avenue Du Mont-Royal Est",
+  price: 10.00,
+  img: "https://img1.wsimg.com/isteam/ip/f2a35b3d-a0c7-45e7-8968-b096cd46a13d/blob-a1569c1.png/:/rs=h:76,cg:true,m/qt=q:95",
+  starts_at: "2026-11-27 20:00",
+  ends_at: "2026-11-27 22:00")
