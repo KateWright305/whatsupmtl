@@ -1,0 +1,15 @@
+<%= form_with model: @activity do |f| %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :photo %>
+    <%= f.file_field :photo %>
+  </div>
+
+  <%= f.submit %>
+
+<% end %>
