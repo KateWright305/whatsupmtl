@@ -1,4 +1,6 @@
 class Activity < ApplicationRecord
+  has_one_attached :photo
+
   validates :name, presence: true
   validates :description, presence: true
   validates :url, presence: true
