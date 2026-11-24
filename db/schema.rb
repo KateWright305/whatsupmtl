@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -95,6 +95,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.bigint "type_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type_id"], name: "index_preferences_on_type_id"
+    t.index ["user_id"], name: "index_preferences_on_user_id"
   end
 
   create_table "ruby_llm_batches", force: :cascade do |t|
@@ -277,9 +286,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "activity_types", "activities"
   add_foreign_key "activity_types", "types"
   add_foreign_key "chats", "ruby_llm_models"
-  add_foreign_key "chats", "users"
   add_foreign_key "messages", "chats"
+  add_foreign_key "preferences", "types"
+  add_foreign_key "preferences", "users"
 end
