@@ -1,0 +1,8 @@
+<h1>Details of the chat</h1>
+<% @chat.messages.each do |message| %>
+  <p>
+    <strong><%= message.role %> :</strong> <%= message.content %>
+  </p>
+<% end %>
+<%= render "messages/form", chat: @chat, message: @message %>
+<%= link_to "Go back", chats_path %>

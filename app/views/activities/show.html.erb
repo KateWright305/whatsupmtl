@@ -1,4 +1,19 @@
-<p><%= @activity.img %></p>
+<% if @activity.photo.present? %>
+<p>
+  <%= cl_image_tag(
+    @activity.photo.key,
+    width: 150,
+    height: 150,
+    crop: :thumb,
+    gravity: :auto
+  ) %>
+  </p>
+
+<% else %>
+
+  <p>No image available</p>
+
+<% end %>
 
 <h1><%= @activity.name %></h1>
 
