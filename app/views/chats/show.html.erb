@@ -4,5 +4,5 @@
     <strong><%= message.role %> :</strong> <%= message.content %>
   </p>
 <% end %>
-
+<%= render "messages/form", chat: @chat, message: @message %>
 <%= link_to "Go back", chats_path %>
