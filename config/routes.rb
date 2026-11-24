@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     post :add_to_groups, on: :member
   end
 
-  resources :groups, only: [:index, :new, :create, :show]
+  resources :groups
 
   devise_for :users
   root to: "pages#home"

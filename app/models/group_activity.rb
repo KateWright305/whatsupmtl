@@ -4,6 +4,6 @@ class GroupActivity < ApplicationRecord
 
    validates :activity_id, uniqueness: {
     scope: :group_id,
-    message: "is already associated with this group"
+    message: "This activity is already associated with this group"
   }
 end
