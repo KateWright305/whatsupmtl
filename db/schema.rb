@@ -55,6 +55,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "activity_types", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.bigint "type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_types_on_activity_id"
+    t.index ["type_id"], name: "index_activity_types_on_type_id"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   create_table "chats", force: :cascade do |t|
     t.bigint "ruby_llm_model_id", null: false
     t.boolean "cancelled", default: false, null: false
@@ -260,6 +273,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activity_types", "activities"
+  add_foreign_key "activity_types", "types"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "ruby_llm_models"
