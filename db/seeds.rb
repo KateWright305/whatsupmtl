@@ -16,3 +16,23 @@ Activity.find_or_create_by!(name: "Line Dance Class",
   img: "https://img1.wsimg.com/isteam/ip/f2a35b3d-a0c7-45e7-8968-b096cd46a13d/blob-a1569c1.png/:/rs=h:76,cg:true,m/qt=q:95",
   starts_at: "2026-11-27 20:00",
   ends_at: "2026-11-27 22:00")
+
+User.destroy_all
+
+User.create!(
+  email: "tommy@lewagon.ca",
+  password: "password123",
+  password_confirmation: "password123"
+)
+
+User.create!(
+  email: "kate@lewagon.ca",
+  password: "password123",
+  password_confirmation: "password123"
+)
+
+User.create!(
+  email: "greg@lewagon.ca",
+  password: "password123",
+  password_confirmation: "password123"
+)
