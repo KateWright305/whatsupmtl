@@ -1,16 +1,26 @@
-<h1>My week</h1>
+<header>
+  <div class="container">
+    <h1>My week</h1>
 
-<% start_date = Date.current.beginning_of_week %>
-<% end_date = Date.current.end_of_week %>
+    <% start_date = Date.current.beginning_of_week %>
+    <% end_date = Date.current.end_of_week %>
 
-<% if start_date.month == end_date.month %>
-  <%= "#{start_date.day.ordinalize} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
-<% else %>
-  <%= "#{start_date.day.ordinalize} #{start_date.strftime('%B')} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
-<% end %>
+    <% if start_date.month == end_date.month %>
+      <%= "#{start_date.day.ordinalize} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
+    <% else %>
+      <%= "#{start_date.day.ordinalize} #{start_date.strftime('%B')} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
+    <% end %>
+  </div>
+</header>
 
-<%= week_calendar(number_of_weeks: 1) do |date| %>
-  <%= date %>
+<%= week_calendar(events: @activities, attribute: :starts_at) do |date, activities| %>
+
+  <%= date.day %>
+
+  <% activities.each do |activity| %>
+    <%= render "activity", activity: activity %>
+  <% end %>
+
 <% end %>
 
 <ul>
