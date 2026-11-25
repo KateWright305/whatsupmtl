@@ -1,24 +1,25 @@
 <% if @activity.photo.present? %>
-<p>
-  <%= cl_image_tag(
-    @activity.photo.key,
-    width: 150,
-    height: 150,
-    crop: :thumb,
-    gravity: :auto
-  ) %>
+  <p>
+    <%= cl_image_tag(
+      @activity.photo.key,
+      width: 150,
+      height: 150,
+      crop: :thumb,
+      gravity: :auto
+    ) %>
   </p>
-
 <% else %>
-
   <p>No image available</p>
-
 <% end %>
 
 <h1><%= @activity.name %></h1>
 
 <p><%= @activity.description %></p>
-<p><%= link_to @activity.url, @activity.url %></p>
+
+<p>
+  <%= link_to @activity.url, @activity.url %>
+</p>
+
 <p>Location: <%= @activity.location %></p>
 <p>Price: $<%= @activity.price %></p>
 <p>Start: <%= @activity.starts_at.strftime("%H:%M") %></p>
@@ -30,4 +31,32 @@
   <% end %>
 </ul>
 
-<%= link_to "Back to activities", activities_path %>
+<%= link_to "Delete activity",
+            activity_path(@activity),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            } %>
+
+<%= link_to "Add Groups",
+            add_to_groups_activity_path(@activity) %>
+<hr>
+<h2>Associated Groups</h2>
+<% if @activity.groups.any? %>
+  <ul>
+    <% @activity.groups.each do |group| %>
+      <li>
+        <%= group.name %>
+
+        <%= link_to "Remove",
+                    remove_group_activity_path(@activity, group_id: group.id),
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Remove this group from the activity?"
+                    } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No groups associated with this activity yet.</p>
+<% end %>
