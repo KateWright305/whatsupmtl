@@ -2,6 +2,8 @@ class Activity < ApplicationRecord
   has_many :activity_types, dependent: :destroy
   has_many :types, through: :activity_types
   has_one_attached :photo
+  has_many :group_activities, dependent: :destroy
+  has_many :groups, through: :group_activities
 
   validates :name, presence: true
   validates :description, presence: true
