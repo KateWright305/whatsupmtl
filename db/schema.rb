@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_25_161640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -315,10 +315,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activity_groups", "activities"
   add_foreign_key "activity_groups", "groups"
-  add_foreign_key "activity_types", "activities"
   add_foreign_key "activity_types", "types"
   add_foreign_key "chats", "ruby_llm_models"
-  add_foreign_key "chats", "users"
   add_foreign_key "group_activities", "activities"
   add_foreign_key "group_activities", "groups"
   add_foreign_key "messages", "chats"
