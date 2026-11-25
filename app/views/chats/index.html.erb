@@ -1,5 +1,8 @@
 <h1>My chats</h1>
-<%= link_to "New conversation", new_chat_path %>
+<%= simple_form_for @chat do |f| %>
+  <%= f.button :submit, "Start a conversation",
+  class: "btn btn-outline-primary btn-sm"%>
+<% end %>
 
 <ul>
   <% @chats.each do |chat| %>
