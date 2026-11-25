@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%= link_to activity.name, activity_path(activity) %></h5>
+    <p class="card-text"><%= activity.starts_at.strftime("%H:%M") %></p>
+    <p class="card-text"><%= activity.ends_at.strftime("%H:%M") %></p>
+    <% activity.types.each do |type| %>
+      <li><%= type.name %></li>
+    <% end %>
+  </div>
+</div>

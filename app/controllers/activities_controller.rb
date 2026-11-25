@@ -50,6 +50,13 @@ class ActivitiesController < ApplicationController
                 notice: "#{@group.name} was removed from this activity."
   end
 
+  def destroy
+    @activity = Activity.find(params[:id])
+    @activity.destroy
+
+    redirect_to activities_path, notice: "Activity successfully deleted."
+  end
+
   private
 
   def activity_params

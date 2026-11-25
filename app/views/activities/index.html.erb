@@ -13,36 +13,27 @@
   </div>
 </header>
 
-<%= week_calendar(events: @activities, attribute: :starts_at) do |date, activities| %>
+<body>
+  <div class="container">
+    <div>
+      <%= week_calendar(events: @activities, attribute: :starts_at) do |date, activities| %>
 
-  <%= date.day %>
+        <div class="d-flex align-items-center gap-2 border-bottom my-2"">
+          <h5 class="mb-0"><%= date.strftime("%A") %></h5>
+          <p class="mb-0"><%= date.strftime("%d") %></p>
+        </div>
 
-  <% activities.each do |activity| %>
-    <%= render "activity", activity: activity %>
-  <% end %>
-
-<% end %>
-
-<ul>
-  <% @activities.each do |activity| %>
-    <li>
-      <%= link_to activity.name, activity_path(activity) %></li>
-
-      <p><%= activity.img %></p>
-      <p><%= activity.starts_at.strftime("%H:%M") %></p>
-      <p><%= activity.ends_at.strftime("%H:%M") %></p>
-
-      <ul>
-        <% activity.types.each do |type| %>
-          <li><%= type.name %></li>
+        <% activities.each do |activity| %>
+          <%= render "activity", activity: activity %>
         <% end %>
-      </ul>
 
-    </li>
-  <% end %>
-</ul>
+      <% end %>
+    </div>
 
-<%= simple_form_for @chat do |f| %>
-  <%= f.button :submit, "Start a conversation",
-  class: "btn btn-outline-primary btn-sm"%>
-<% end %>
+    <div>
+      <%= simple_form_for @chat do |f| %>
+        <%= f.button :submit, "Chat now", class: "btn btn-outline-primary btn-sm"%>
+      <% end %>
+    </div>
+  </div>
+<body>
