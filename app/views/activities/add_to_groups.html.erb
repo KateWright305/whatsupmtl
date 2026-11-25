@@ -1,0 +1,28 @@
+<h3>Add Activity to Groups</h3>
+
+<h5><%= @activity.name %></h5>
+
+<%= form_with url: save_groups_activity_path(@activity),
+              method: :post,
+              local: true do %>
+
+  <p>Select groups</p>
+
+  <% @groups.each do |group| %>
+    <div>
+      <%= check_box_tag "group_ids[]",
+                        group.id,
+                        @selected_group_ids.include?(group.id),
+                        id: "group_#{group.id}" %>
+
+      <%= label_tag "group_#{group.id}", group.name %>
+    </div>
+  <% end %>
+
+  <br>
+
+  <%= link_to "Cancel", activity_path(@activity) %>
+
+  <%= submit_tag "Save" %>
+
+<% end %>
