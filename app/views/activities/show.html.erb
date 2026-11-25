@@ -34,9 +34,8 @@
 </ul>
 
 <%= render "shared/delete_button", text: "Delete activity", path: activity_path(@activity) %>
+<%= render "activities/add_to_groups_modal", activity: @activity, groups: @groups %>
 
-<%= link_to "Add Groups",
-            add_to_groups_activity_path(@activity) %>
 <hr>
 <h2>Associated Groups</h2>
 <% if @activity.groups.any? %>
