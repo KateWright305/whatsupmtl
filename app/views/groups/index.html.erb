@@ -1,9 +1,6 @@
 <div>
   <h2>Groups</h2>
-
-  <p>
-    Manage your groups
-  </p>
+  <p>Manage your groups</p>
 
   <%= link_to new_group_path do %>
     <i class="fa-solid fa-plus"></i>
@@ -16,17 +13,74 @@
 <div>
   <% @groups.each do |group| %>
 
-<%= render "groups/group", group: group %>
+    <div>
+      <%= render "groups/group", group: group %>
 
-  <% end %>
+      <h5>Group Activities (<%= group.activities.count %>)</h5>
+
+      <% if group.activities.any? %>
+        <ul>
+          <% group.activities.each do |activity| %>
+            <li>
+              <%= activity.name %>
+
+              <%= link_to "View", activity_path(activity) %>
+
+              <%= link_to "Remove",
+                          remove_activity_group_path(group, activity_id: activity.id),
+                          data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "Remove this activity from this group?"
+                          } %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No activities associated with this group yet.</p>
+      <% end %>
+
+      <hr>
+
+      <h5>Add Activities</h5>
+
+      <% available_activities = @activities.reject { |activity| group.activities.exists?(id: activity.id) } %>
+
+      <% if available_activities.any? %>
+
+        <%= form_with url: add_activity_group_path(group), method: :post do %>
+
+          <% available_activities.each do |activity| %>
+
+            <div>
+              <%= check_box_tag "activity_ids[]", activity.id, false, id: "group_#{group.id}_activity_#{activity.id}" %>
+
+              <%= label_tag "group_#{group.id}_activity_#{activity.id}", activity.name %>
+
+              <%= link_to "View", activity_path(activity) %>
+            </div>
+
+          <% end %>
+
+          <br>
+
+          <%= submit_tag "Add Selected Activities" %>
+
+        <% end %>
+
+      <% else %>
+
+        <p>All activities are already associated with this group.</p>
+
+      <% end %>
+
+      <hr>
+
+    <% end %>
 
   <% if @groups.empty? %>
     <div>
       <h5>No groups yet</h5>
-
-      <p>
-        Create your first group to get started.
-      </p>
+      <p>Create your first group to get started.</p>
     </div>
   <% end %>
 </div>

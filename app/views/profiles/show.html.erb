@@ -11,6 +11,7 @@
 
 <h2>Preferences</h2>
 <%= link_to "Edit preferences", edit_preferences_path %>
+
 <% if @preferences.any? %>
   <ul>
     <% @preferences.each do |type| %>
