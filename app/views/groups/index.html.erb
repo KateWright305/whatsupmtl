@@ -1,0 +1,52 @@
+<div>
+  <h2>Groups</h2>
+
+  <p>
+    Manage your groups
+  </p>
+
+  <%= link_to new_group_path do %>
+    <i class="fa-solid fa-plus"></i>
+    Create Group
+  <% end %>
+</div>
+
+<hr>
+
+<div>
+  <% @groups.each do |group| %>
+
+    <span>
+      <%= group.activities.size %> Activities
+    </span>
+
+    <h5>
+      <%= group.name %>
+    </h5>
+
+    <p>
+      <%= truncate(group.description, length: 110) %>
+    </p>
+
+    <div>
+      <small>
+        Created <%= group.created_at.strftime("%b %d, %Y") %>
+      </small>
+
+      <%= link_to "View Group", group_path(group) %>
+    </div>
+
+    <hr>
+
+  <% end %>
+
+  <% if @groups.empty? %>
+    <div>
+      <h5>No groups yet</h5>
+
+      <p>
+        Create your first group to get started.
+      </p>
+    </div>
+  <% end %>
+</div>

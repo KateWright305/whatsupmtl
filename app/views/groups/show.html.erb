@@ -1,0 +1,73 @@
+
+<div>
+
+      <%= link_to groups_path,
+          class: "text-decoration-none text-muted mb-3 d-inline-block" do %>
+        <i class="fa-solid fa-arrow-left me-2"></i>
+        Back to Groups
+      <% end %>
+
+        <div>
+          <h2 >
+            <%= @group.name %>
+          </h2>
+
+          <p>
+            <%= @group.description %>
+          </p>
+        </div>
+      </div>
+      <hr>
+
+        <div>
+          <h4 >
+            <%= @group.activities.size %>
+          </h4>
+          <small>Activities</small>
+        </div>
+
+        <div>
+          <h4 >
+            <%= @group.created_at.strftime("%b %d") %>
+          </h4>
+          <small>Created</small>
+        </div>
+
+    <h4 >Group Activities</h4>
+
+    <% @group.activities.each do |activity| %>
+          <% if activity.photo.attached? %>
+            <%= image_tag activity.photo %>
+          <% end %>
+
+            <h5>
+              <%= activity.description %>
+            </h5>
+
+            <p>
+
+              <%= activity.location %>
+            </p>
+
+            <p >
+              <%= activity.starts_at&.strftime("%b %d, %Y %H:%M") %>
+            </p>
+
+            <%= link_to "View Activity",
+                activity_path(activity),
+                class: "btn btn-outline-primary btn-sm" %>
+    <% end %>
+
+    <% if @group.activities.empty? %>
+      <span> No activities associated with this group yet. </span>
+    <% end %>
+
+  </div>
+
+  <%= link_to edit_group_path(@group),
+    class: "btn btn-outline-primary btn-sm" do %>
+  <i class="fa-solid fa-pen me-1"></i>
+  Edit Group
+<% end %>
+
+</div>
