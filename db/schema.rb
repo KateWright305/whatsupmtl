@@ -55,23 +55,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "group_activities", force: :cascade do |t|
-    t.bigint "group_id", null: false
+  create_table "activity_groups", force: :cascade do |t|
     t.bigint "activity_id", null: false
+    t.bigint "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_group_activities_on_activity_id"
-    t.index ["group_id", "activity_id"], name: "index_group_activities_on_group_id_and_activity_id", unique: true
-    t.index ["group_id"], name: "index_group_activities_on_group_id"
+    t.index ["activity_id", "group_id"], name: "index_activity_groups_on_activity_id_and_group_id", unique: true
+    t.index ["activity_id"], name: "index_activity_groups_on_activity_id"
+    t.index ["group_id"], name: "index_activity_groups_on_group_id"
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-  
   create_table "activity_types", force: :cascade do |t|
     t.bigint "activity_id", null: false
     t.bigint "type_id", null: false
@@ -92,6 +85,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
     t.index ["claimed_until"], name: "index_chats_on_claimed_until", where: "(claim_token IS NOT NULL)"
     t.index ["ruby_llm_model_id"], name: "index_chats_on_ruby_llm_model_id"
     t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "group_activities", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "activity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_group_activities_on_activity_id"
+    t.index ["group_id", "activity_id"], name: "index_group_activities_on_group_id_and_activity_id", unique: true
+    t.index ["group_id"], name: "index_group_activities_on_group_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -303,11 +313,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_221550) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "group_activities", "activities"
-  add_foreign_key "group_activities", "groups"
+  add_foreign_key "activity_groups", "activities"
+  add_foreign_key "activity_groups", "groups"
   add_foreign_key "activity_types", "activities"
   add_foreign_key "activity_types", "types"
   add_foreign_key "chats", "ruby_llm_models"
+  add_foreign_key "chats", "users"
+  add_foreign_key "group_activities", "activities"
+  add_foreign_key "group_activities", "groups"
   add_foreign_key "messages", "chats"
   add_foreign_key "preferences", "types"
   add_foreign_key "preferences", "users"

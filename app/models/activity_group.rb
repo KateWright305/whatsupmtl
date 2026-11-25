@@ -1,6 +1,6 @@
-class GroupActivity < ApplicationRecord
-  belongs_to :group
+class ActivityGroup < ApplicationRecord
   belongs_to :activity
+  belongs_to :group
 
    validates :activity_id, uniqueness: {
     scope: :group_id,
