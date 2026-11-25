@@ -1,13 +1,26 @@
-<h1>My chats</h1>
-<%= simple_form_for @chat do |f| %>
-  <%= f.button :submit, "Start a conversation",
-  class: "btn btn-outline-primary btn-sm"%>
-<% end %>
+<div class="container my-4" style="max-width: 700px;">
+  <div class="card shadow-sm">
 
-<ul>
-  <% @chats.each do |chat| %>
-    <li>
-      <%= link_to "Chat n°#{chat.id}", chat_path(chat) %>
-    </li>
-  <% end %>
-</ul>
+    <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+      <h5 class="mb-0">My chats</h5>
+      <%= simple_form_for @chat do |f| %>
+        <%= f.button :submit, "Start a conversation", class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+
+    <div class="list-group list-group-flush">
+      <% @chats.each do |chat| %>
+        <%= link_to chat_path(chat), class: "list-group-item list-group-item-action py-3" do %>
+          <div class="d-flex justify-content-between">
+            <strong>Chat n°<%= chat.id %></strong>
+            <small class="text-muted"><%= chat.created_at.strftime("%b %d, %H:%M") %></small>
+          </div>
+          <small class="text-muted">
+            <%= chat.messages.any? ? truncate(chat.messages.last.content, length: 70) : "No messages yet" %>
+          </small>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
