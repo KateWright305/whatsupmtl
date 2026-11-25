@@ -1,0 +1,22 @@
+<h1>My Profile</h1>
+
+<h2>Personal Information</h2>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to "Edit Account", edit_user_registration_path %>
+
+<h2>Preferences</h2>
+
+<% if @preferences.any? %>
+  <ul>
+    <% @preferences.each do |type| %>
+      <li><%= type.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No preferences selected yet</p>
+<% end %>
