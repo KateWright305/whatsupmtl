@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
   def index
     @activities = Activity.all
+    @chat = Chat.new
   end
 
   def show
