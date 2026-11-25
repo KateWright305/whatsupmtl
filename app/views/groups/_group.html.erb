@@ -1,0 +1,19 @@
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0"><%= group.name %></h5>
+    <button class="btn btn-outline-primary btn-sm" type="button"
+            data-bs-toggle="collapse" data-bs-target="#group-<%= group.id %>">
+      <%= group.activities.size %> Activities
+    </button>
+  </div>
+
+  <div class="collapse" id="group-<%= group.id %>">
+    <div class="card-body">
+      <p><%= truncate(group.description, length: 110) %></p>
+      <small>Created <%= group.created_at.strftime("%b %d, %Y") %></small>
+      <div class="mt-2">
+        <%= render "shared/button", text: "View Group", path: group_path(group) %>
+      </div>
+    </div>
+  </div>
+</div>
