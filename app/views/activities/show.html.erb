@@ -40,6 +40,8 @@
 
 <%= link_to "Add Groups",
             add_to_groups_activity_path(@activity) %>
+
+<%= link_to "Back to activities", activities_path %>
 <hr>
 <h2>Associated Groups</h2>
 <% if @activity.groups.any? %>
