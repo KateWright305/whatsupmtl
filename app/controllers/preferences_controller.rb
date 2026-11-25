@@ -1,11 +1,10 @@
 class PreferencesController < ApplicationController
+  before_action :set_user, only: [:edit, :update]
+
   def edit
-    @user = current_user
   end
 
   def update
-    @user = current_user
-
     if @user.update(preference_params)
       redirect_to profile_path, notice: "Preferences updated"
     else
@@ -14,6 +13,10 @@ class PreferencesController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def preference_params
     params.require(:user).permit(type_ids: [])
