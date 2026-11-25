@@ -1,5 +1,6 @@
-<% if @activity.photo.present? %>
-  <p>
+<p>
+  <% if @activity.photo.present? %>
+
     <%= cl_image_tag(
       @activity.photo.key,
       width: 150,
@@ -7,10 +8,11 @@
       crop: :thumb,
       gravity: :auto
     ) %>
-  </p>
-<% else %>
-  <p>No image available</p>
-<% end %>
+
+  <% else %>
+    No image available
+  <% end %>
+</p>
 
 <h1><%= @activity.name %></h1>
 
@@ -31,12 +33,7 @@
   <% end %>
 </ul>
 
-<%= link_to "Delete activity",
-            activity_path(@activity),
-            data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure?"
-            } %>
+<%= render "shared/delete_button", text: "Delete activity", path: activity_path(@activity) %>
 
 <%= link_to "Add Groups",
             add_to_groups_activity_path(@activity) %>
