@@ -72,6 +72,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
     t.datetime "updated_at", null: false
   end
   
+  create_table "activity_types", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.bigint "type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_types_on_activity_id"
+    t.index ["type_id"], name: "index_activity_types_on_type_id"
+  end
+
   create_table "chats", force: :cascade do |t|
     t.bigint "ruby_llm_model_id", null: false
     t.boolean "cancelled", default: false, null: false
@@ -265,6 +274,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
     t.check_constraint "status::text = ANY (ARRAY['pending'::text, 'succeeded'::text, 'failed'::text, 'cancelled'::text])"
   end
 
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -281,6 +296,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_24_205153) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "group_activities", "activities"
   add_foreign_key "group_activities", "groups"
+  add_foreign_key "activity_types", "activities"
+  add_foreign_key "activity_types", "types"
   add_foreign_key "chats", "ruby_llm_models"
   add_foreign_key "chats", "users"
   add_foreign_key "messages", "chats"

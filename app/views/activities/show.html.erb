@@ -24,4 +24,10 @@
 <p>Start: <%= @activity.starts_at.strftime("%H:%M") %></p>
 <p>End: <%= @activity.ends_at.strftime("%H:%M") %></p>
 
+<ul>
+  <% @activity.types.each do |type| %>
+    <li><%= type.name %></li>
+  <% end %>
+</ul>
+
 <%= link_to "Back to activities", activities_path %>
