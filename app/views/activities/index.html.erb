@@ -3,18 +3,7 @@
 <ul>
   <% @activities.each do |activity| %>
     <li>
-      <%= link_to activity.name, activity_path(activity) %></li>
-
-      <p><%= activity.img %></p>
-      <p><%= activity.starts_at.strftime("%H:%M") %></p>
-      <p><%= activity.ends_at.strftime("%H:%M") %></p>
-
-      <ul>
-        <% activity.types.each do |type| %>
-          <li><%= type.name %></li>
-        <% end %>
-      </ul>
-
+      <%= render "activities/activity", activity: activity %>
     </li>
   <% end %>
 </ul>
