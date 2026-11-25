@@ -1,4 +1,17 @@
-<h1>Activities</h1>
+<h1>My week</h1>
+
+<% start_date = Date.current.beginning_of_week %>
+<% end_date = Date.current.end_of_week %>
+
+<% if start_date.month == end_date.month %>
+  <%= "#{start_date.day.ordinalize} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
+<% else %>
+  <%= "#{start_date.day.ordinalize} #{start_date.strftime('%B')} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
+<% end %>
+
+<%= week_calendar(number_of_weeks: 1) do |date| %>
+  <%= date %>
+<% end %>
 
 <ul>
   <% @activities.each do |activity| %>
