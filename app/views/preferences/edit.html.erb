@@ -1,2 +1,8 @@
-<h1>Preferences#edit</h1>
-<p>Find me in app/views/preferences/edit.html.erb</p>
+<h1>Edit Preferences</h1>
+
+<%= simple_form_for @user, url: preferences_path do |f| %>
+  <%= f.association :types, as: :check_boxes %>
+  <%= f.button :submit, "Save Preferences" %>
+<% end %>
+
+<%= link_to "Cancel", profile_path %>
