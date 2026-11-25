@@ -3,4 +3,4 @@
 <%= render "messages/message", message: message %>
 <% end %>
 <%= render "messages/form", chat: @chat, message: @message %>
-<%= link_to "Go back", chats_path %>
+<%= render "shared/button", text: "Go Back", path: chats_path %>
