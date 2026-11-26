@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   def index
     @groups = Group.includes(:activities).order(created_at: :desc)
+    @activities = Activity.all
   end
 
   def new
@@ -20,6 +21,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.includes(:activities).find(params[:id])
+    @activities = Activity.where.not(id: @group.activities.ids)
   end
 
   def edit
@@ -34,6 +36,31 @@ class GroupsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def add_activity
+    @group = Group.find(params[:id])
+
+    activity_ids = params[:activity_ids] || []
+
+    activities = Activity.where(id: activity_ids)
+
+    activities.each do |activity|
+      unless @group.activities.exists?(id: activity.id)
+        @group.activities << activity
+      end
+    end
+
+    redirect_to groups_path, notice: "Activities successfully added to group."
+  end
+
+  def remove_activity
+    @group = Group.find(params[:id])
+    @activity = Activity.find(params[:activity_id])
+
+    @group.activities.delete(@activity)
+
+    redirect_to group_path(@group), notice: "Activity removed from group."
   end
 
   private
