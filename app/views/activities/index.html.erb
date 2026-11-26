@@ -1,39 +1,29 @@
 <header>
-  <div class="container">
-    <h1>My week</h1>
-
-    <% start_date = Date.current.beginning_of_week %>
-    <% end_date = Date.current.end_of_week %>
-
-    <% if start_date.month == end_date.month %>
-      <%= "#{start_date.day.ordinalize} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
-    <% else %>
-      <%= "#{start_date.day.ordinalize} #{start_date.strftime('%B')} - #{end_date.day.ordinalize} #{end_date.strftime('%B')}" %>
-    <% end %>
-  </div>
+  <div class="container d-flex flex-column gap-2 my-4">
+    <h1 class="mb-0">Weekly Planner</h1>
 </header>
 
-<body>
-  <div class="container">
-    <div>
-      <%= week_calendar(events: @activities, attribute: :starts_at) do |date, activities| %>
+<div class="container d-flex flex-column gap-4">
+  <div>
+    <%= week_calendar(events: @activities, attribute: :starts_at) do |date, activities| %>
 
-        <div class="d-flex align-items-center gap-2 border-bottom my-2"">
-          <h5 class="mb-0"><%= date.strftime("%A") %></h5>
-          <p class="mb-0"><%= date.strftime("%d") %></p>
-        </div>
+      <div class="d-flex align-items-center gap-2 border-bottom mb-2">
+        <h5 class="mb-0"><%= date.strftime("%A") %></h5>
+        <p class="mb-0"><%= date.strftime("%d") %></p>
+      </div>
 
+      <div class="d-flex flex-column gap-2">
         <% activities.each do |activity| %>
           <%= render "activity", activity: activity %>
         <% end %>
+      </div>
 
-      <% end %>
-    </div>
-
-    <div>
-      <%= simple_form_for @chat do |f| %>
-        <%= f.button :submit, "Chat now", class: "btn btn-outline-primary btn-sm"%>
-      <% end %>
-    </div>
+    <% end %>
   </div>
-<body>
+
+  <div>
+    <%= simple_form_for @chat do |f| %>
+      <%= f.button :submit, "Find me some activities!", class: "btn btn-outline-primary btn-sm" %>
+    <% end %>
+  </div>
+</div>

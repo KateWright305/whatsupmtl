@@ -1,0 +1,28 @@
+// Small activity card to display in calendar
+
+.activity-card {
+  text-decoration: none;
+  font-size: small;
+  height: 100px;
+  overflow: hidden;
+  border: 0px solid #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  background-color: white;
+  .card-body {
+    min-width: 0;
+  }
+}
+
+.activity-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.activity-card {
+  .card-body {
+    min-width: 0;
+  }
+}
