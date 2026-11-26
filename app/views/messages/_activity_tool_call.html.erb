@@ -11,6 +11,6 @@
     <%= form.input :img, as: :hidden, input_html: { value: tool["img"] } %>
     <%= form.input :starts_at, as: :hidden, input_html: { value: tool["starts_at"] } %>
     <%= form.input :ends_at, as: :hidden, input_html: { value: tool["ends_at"] } %>
-    <%= form.button :submit, "Save activity" %>
+    <%= form.button :submit, "Save activity", class: "btn btn-primary btn-sm mt-2" %>
   <% end %>
 </div>
