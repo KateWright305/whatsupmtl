@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     post :save_groups, on: :member
     delete :remove_group, on: :member
   end
-  resources :groups
+  resources :groups do
+    post :add_activity, on: :member
+    delete :remove_activity, on: :member
+  end
   resources :chats, only: [:index, :show, :new, :create] do
     resources :messages, only: [:create]
   end
