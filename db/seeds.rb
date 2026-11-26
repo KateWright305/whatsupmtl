@@ -56,6 +56,7 @@ end
 
 puts "Created #{Type.count} types"
 
+# Activity 1
 activity = Activity.find_or_initialize_by(name: "Line Dance Class")
 
 activity.update!(
@@ -69,6 +70,47 @@ activity.update!(
   types: Type.where(name: ["Dance"])
 )
 
+# Activity 2
+activity = Activity.find_or_initialize_by(name: "Salsa Night")
+
+activity.update!(
+  description: "Join us for a vibrant Salsa night with music, dancing and a great atmosphere.",
+  url: "https://example.com/salsa",
+  location: "Montreal, Quebec",
+  price: 15.00,
+  img: "https://placehold.co/600x400",
+  starts_at: "2026-11-28 20:00",
+  ends_at: "2026-11-28 23:00",
+  types: Type.where(name: ["Dance"])
+)
+
+# Activity 3
+activity = Activity.find_or_initialize_by(name: "Montreal Hiking Meetup")
+
+activity.update!(
+  description: "Explore Montreal outdoors with a group of hiking enthusiasts.",
+  url: "https://example.com/hiking",
+  location: "Mount Royal, Montreal",
+  price: 0.00,
+  img: "https://placehold.co/600x400",
+  starts_at: "2026-11-29 10:00",
+  ends_at: "2026-11-29 13:00",
+  types: Type.where(name: ["Sport"])
+)
+
+# Activity 4
+activity = Activity.find_or_initialize_by(name: "Board Games Meetup")
+
+activity.update!(
+  description: "Enjoy an afternoon of board games, socializing and meeting new people.",
+  url: "https://example.com/boardgames",
+  location: "Montreal, Quebec",
+  price: 5.00,
+  img: "https://placehold.co/600x400",
+  starts_at: "2026-11-29 14:00",
+  ends_at: "2026-11-29 17:00",
+  types: Type.where(name: ["Social"])
+)
 User.destroy_all
 
 User.create!(
