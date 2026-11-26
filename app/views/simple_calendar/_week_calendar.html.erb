@@ -18,7 +18,7 @@
     </nav>
   </div>
 
-  <div class="calendar-days d-flex flex-column gap-2">
+  <div class="calendar-days d-flex flex-column gap-3">
     <% date_range.each do |day| %>
       <div class="calendar-day">
         <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
