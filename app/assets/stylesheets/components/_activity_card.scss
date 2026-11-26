@@ -1,0 +1,33 @@
+// Small activity card to display in calendar
+
+.activity-card {
+  overflow: hidden;
+  border: none;
+  border-radius: 12px;
+  background-color: $white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-body {
+    min-width: 0;
+  }
+}
+
+.activity-img {
+  width: 100px;
+  min-height: 100px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.activity-meta {
+  overflow-wrap: anywhere;
+
+  i {
+    width: 16px;
+  }
+}

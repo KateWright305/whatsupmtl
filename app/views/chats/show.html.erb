@@ -1,6 +1,20 @@
-<h1>Details of the chat</h1>
-<% @chat.messages.each do |message| %>
-<%= render "messages/message", message: message %>
-<% end %>
-<%= render "messages/form", chat: @chat, message: @message %>
-<%= render "shared/button", text: "Go Back", path: chats_path %>
+<div class="container my-4" style="max-width: 700px;">
+  <div class="card shadow-sm">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+      <h5 class="mb-0">Chat n°<%= @chat.id %></h5>
+      <%= render "shared/button", text: "Go Back", path: chats_path %>
+    </div>
+
+    <div class="card-body">
+      <% @chat.messages.each do |message| %>
+        <%= render "messages/message", message: message %>
+      <% end %>
+    </div>
+
+    <div class="card-footer bg-white py-3">
+      <%= render "messages/form", chat: @chat, message: @message %>
+    </div>
+
+  </div>
+</div>
