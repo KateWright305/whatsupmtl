@@ -1,7 +1,7 @@
 <div>
   <%= tool["name"] %>
-  <%= form_with model: @activity do |form| %>
-    <%= form.hidden_field :name, value: tool["name"] %>
+<%= simple_form_for Activity.new, url: activities_path do |form| %>
+<%= form.input :name, as: :hidden, input_html: { value: tool["name"] } %>
     <%= form.submit %>
   <% end %>
 </div>
