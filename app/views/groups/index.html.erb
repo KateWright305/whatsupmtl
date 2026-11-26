@@ -1,59 +1,21 @@
-<div>
-  <h2>Groups</h2>
-  <p>Manage your groups</p>
+<header>
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3 my-4">
 
-  <%= link_to new_group_path do %>
-    <i class="fa-solid fa-plus"></i>
-    Create Group
-  <% end %>
-</div>
-<hr>
-<div>
+    <div>
+      <h1 class="mb-2">Groups</h1>
+      <p class="text-muted small mb-0">Organise your activities into groups</p>
+    </div>
+
+    <%= link_to "Create New Group", new_group_path, class: "btn btn-primary rounded-3" %>
+
+  </div>
+</header>
+
+<div class="container d-flex flex-column gap-4">
   <% @groups.each do |group| %>
 
     <div>
       <%= render "groups/group", group: group %>
-      <h5> Associated Activities (<%= group.activities.count %>)</h5>
-      <% if group.activities.any? %>
-        <ul>
-          <% group.activities.each do |activity| %>
-            <li>
-              <%= activity.name %>
-
-              <%= link_to "View", activity_path(activity) %>
-
-              <%= link_to "Remove",
-                          remove_activity_group_path(group, activity_id: activity.id),
-                          data: {
-                            turbo_method: :delete,
-                            turbo_confirm: "Remove this activity from this group?"
-                          } %>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>No activities associated with this group yet.</p>
-      <% end %>
-      <hr>
-      <h5> Activities list</h5>
-      <% available_activities = @activities.reject { |activity| group.activities.exists?(id: activity.id) } %>
-      <% if available_activities.any? %>
-        <%= form_with url: add_activity_group_path(group), method: :post do %>
-          <%= select_tag "activity_ids[]",
-                        options_from_collection_for_select(available_activities, :id, :name),
-                        multiple: true,
-                        size: 5,
-                        required: true %>
-
-          <br><br>
-
-          <%= submit_tag "Add to group" %>
-
-        <% end %>
-      <% else %>
-        <p>All activities are already associated with this group.</p>
-      <% end %>
-      <hr>
     <% end %>
 
   <% if @groups.empty? %>

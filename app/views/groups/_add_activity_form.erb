@@ -1,0 +1,44 @@
+<div class="collapse mt-3" id="activities-<%= group.id %>">
+
+  <% available_activities = activities.reject { |activity| group.activities.exists?(id: activity.id) } %>
+
+  <% if available_activities.any? %>
+
+    <%= form_with url: add_activity_group_path(group), method: :post do %>
+
+      <div class="border rounded p-3">
+
+        <% available_activities.each do |activity| %>
+
+          <div class="form-check mb-2">
+
+            <%= check_box_tag "activity_ids[]",
+                activity.id,
+                false,
+                id: "group-#{group.id}-activity-#{activity.id}",
+                class: "form-check-input" %>
+
+            <%= label_tag "group-#{group.id}-activity-#{activity.id}",
+                activity.name,
+                class: "form-check-label" %>
+
+          </div>
+
+        <% end %>
+
+        <%= submit_tag "Add to group",
+            class: "btn btn-primary btn-sm mt-3" %>
+
+      </div>
+
+    <% end %>
+
+  <% else %>
+
+    <p class="text-muted">
+      All activities are already associated with this group.
+    </p>
+
+  <% end %>
+
+</div>

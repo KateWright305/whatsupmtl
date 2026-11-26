@@ -1,25 +1,60 @@
 <div class="card mb-3">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0"><%= group.name %></h5>
-    <%= link_to "Delete Group",
-            group_path(group),
-            data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure you want to delete this group?"
-            }, class:"btn btn-outline-primary btn-sm" %>
     <button class="btn btn-outline-primary btn-sm" type="button"
-            data-bs-toggle="collapse" data-bs-target="#group-<%= group.id %>">
-      <%= group.activities.size %> Activities
+    data-bs-toggle="collapse" data-bs-target="#group-<%= group.id %>">
+    See activities
     </button>
   </div>
 
   <div class="collapse" id="group-<%= group.id %>">
     <div class="card-body">
-      <p><%= truncate(group.description, length: 110) %></p>
+
+    <p><%= truncate(group.description, length: 110) %></p>
       <small>Created <%= group.created_at.strftime("%b %d, %Y") %></small>
-      <div class="mt-2">
-        <%= render "shared/button", text: "View Group", path: group_path(group) %>
-      </div>
+
+      <% if group.activities.any? %>
+          <ul>
+            <% group.activities.each do |activity| %>
+              <li>
+                <%= activity.name %>
+
+                <%= link_to "View", activity_path(activity) %>
+
+                <%= link_to "Remove",
+                            remove_activity_group_path(group, activity_id: activity.id),
+                            data: {
+                              turbo_method: :delete,
+                              turbo_confirm: "Remove this activity from this group?"
+                            } %>
+              </li>
+            <% end %>
+          </ul>
+
+        <% else %>
+          <p>No activities associated with this group yet.</p>
+        <% end %>
+
+        <button type="button"
+          class="btn btn-outline-primary btn-sm"
+          data-bs-toggle="collapse"
+          data-bs-target="#activities-<%= group.id %>"
+          aria-expanded="false"
+          aria-controls="activities-<%= group.id %>">
+        <i class="fa-solid fa-plus"></i> Add activity
+        </button>
+
+        <%= link_to '<i class="fa-solid fa-xmark"></i> Delete group'.html_safe,
+          group_path(group),
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure you want to delete this group?"
+          }, class: "btn btn-outline-primary btn-sm" %>
+
+        <%= render "groups/add_activity_form",
+          group: group,
+          activities: @activities %>
+
     </div>
   </div>
 </div>
