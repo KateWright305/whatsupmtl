@@ -1,22 +1,42 @@
-<h1>My Profile</h1>
+<div class="container my-4" style="max-width: 700px;">
+  <div class="card shadow-sm p-4">
 
-<h2>Personal Information</h2>
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+          style="width: 56px; height: 56px; font-size: 1.5rem;">
+        <%= @user.email.first.upcase %>
+      </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+      <div>
+        <h4 class="mb-0">My Profile</h4>
+        <small class="text-muted"><%= @user.email %></small>
+      </div>
+    </div>
 
-<%= link_to "Edit Account", edit_user_registration_path %>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="mb-0">Personal information</h6>
+      <%= link_to "Edit account", edit_user_registration_path, class: "btn btn-outline-primary btn-sm" %>
+    </div>
 
-<h2>Preferences</h2>
-<%= link_to "Edit preferences", edit_preferences_path %>
-<% if @preferences.any? %>
-  <ul>
-    <% @preferences.each do |type| %>
-      <li><%= type.name %></li>
+    <p class="text-muted mb-0"><strong>Email:</strong> <%= @user.email %></p>
+
+    <hr class="my-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="mb-0">Preferences</h6>
+      <%= link_to "Edit preferences", edit_preferences_path, class: "btn btn-outline-primary btn-sm" %>
+    </div>
+
+    <% if @preferences.any? %>
+      <div class="d-flex flex-wrap gap-2">
+        <% @preferences.each do |type| %>
+          <span class="badge rounded-pill text-bg-light border px-3 py-2"><%= type.name %></span>
+        <% end %>
+      </div>
+
+    <% else %>
+      <p class="text-muted mb-0">No preferences selected yet</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No preferences selected yet</p>
-<% end %>
+
+  </div>
+</div>
