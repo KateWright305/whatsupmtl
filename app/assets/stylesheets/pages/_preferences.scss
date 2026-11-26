@@ -1,0 +1,14 @@
+.preferences-types {
+  .form-check-input.is-valid ~ .form-check-label {
+    color: inherit;
+  }
+
+  .form-check-input.is-valid {
+    border-color: var(--bs-border-color);
+  }
+
+  .form-check-input.is-valid:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+}
