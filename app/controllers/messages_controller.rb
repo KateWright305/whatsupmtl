@@ -11,19 +11,18 @@ class MessagesController < ApplicationController
       Context:
       You are part of this application which designed to help people discover
       activities in Montreal.
-      You have access to a tool that returns activities in a structured format.
-      Use the tool when the user asks for activity recommendations.
-      Do not invent activities or search the web.
+      Use the web search tool to find activities based on user input.
 
       Format:
-      When activities are requested, use the available tool to return activities
-      in the structured format expected by the application.
+      You have access to a tool that returns activities in a structured format.
+      Use this to return results
       Keep your conversational responses clear, friendly and concise.
   PROMPT
 
   def create
     @chat = current_user.chats.find(params[:chat_id])
     @chat.with_instructions(SYSTEM_PROMPT)
+    @chat.with_provider_tools(:web_search)
     @chat.with_tools(CreateActivityTool)
     @chat.ask(message_params[:content])
     redirect_to chat_path(@chat)
