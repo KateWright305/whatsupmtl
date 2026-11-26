@@ -1,60 +1,153 @@
-<p>
-  <% if @activity.photo.present? %>
 
-    <%= cl_image_tag(
-      @activity.photo.key,
-      width: 150,
-      height: 150,
-      crop: :thumb,
-      gravity: :auto
-    ) %>
+<div class="container-fluid px-0 px-md-3 py-3 activity-page">
+  <div class="activity-card mx-auto">
 
-  <% else %>
-    No image available
-  <% end %>
-</p>
+    <div class="activity-image-wrapper">
+      <% if @activity.photo.present? %>
+        <%= cl_image_tag(
+          @activity.photo.key,
+          width: 1200,
+          height: 600,
+          crop: :fill,
+          gravity: :auto,
+          class: "activity-image"
+        ) %>
+      <% else %>
+        <div class="activity-placeholder">
+          <i class="fa-solid fa-image"></i>
+          <span>No image available</span>
+        </div>
+      <% end %>
+    </div>
 
-<h1><%= @activity.name %></h1>
+    <h1 class="activity-title">
+      <%= @activity.name %>
+    </h1>
 
-<p><%= @activity.description %></p>
+    <div class="activity-description">
+      <%= @activity.description %>
+    </div>
 
-<p>
-  <%= link_to @activity.url, @activity.url %>
-</p>
+    <% if @activity.url.present? %>
+      <div class="activity-link-box">
+        <%= link_to @activity.url,
+                    @activity.url,
+                    target: "_blank",
+                    class: "activity-link" %>
 
-<p>Location: <%= @activity.location %></p>
-<p>Price: $<%= @activity.price %></p>
-<p>Start: <%= @activity.starts_at.strftime("%H:%M") %></p>
-<p>End: <%= @activity.ends_at.strftime("%H:%M") %></p>
-
-<ul>
-  <% @activity.types.each do |type| %>
-    <li><%= type.name %></li>
-  <% end %>
-</ul>
-
-<%= render "shared/delete_button", text: "Delete activity", path: activity_path(@activity) %>
-<%= render "activities/add_to_groups_modal", activity: @activity, groups: @groups %>
-
-
-<%= link_to "Back to activities", activities_path %>
-<hr>
-<h2>Associated Groups</h2>
-<% if @activity.groups.any? %>
-  <ul>
-    <% @activity.groups.each do |group| %>
-      <li>
-        <%= group.name %>
-
-        <%= link_to "Remove",
-                    remove_group_activity_path(@activity, group_id: group.id),
-                    data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "Remove this group from the activity?"
-                    } %>
-      </li>
+        <i class="fa-solid fa-link"></i>
+      </div>
     <% end %>
-  </ul>
-<% else %>
-  <p>No groups associated with this activity yet.</p>
-<% end %>
+
+    <!-- Activity Information -->
+    <div class="activity-info-grid">
+
+      <div class="activity-info-item">
+        <span class="activity-info-text">
+          <%= @activity.location %>
+        </span>
+
+        <i class="fa-solid fa-location-dot"></i>
+      </div>
+
+      <div class="activity-info-item">
+        <span class="activity-info-text">
+          CAD <%= number_to_currency(@activity.price, unit: "", precision: 0) %>
+        </span>
+
+        <i class="fa-solid fa-wallet"></i>
+      </div>
+
+    </div>
+
+    <div class="activity-date-box">
+
+      <div class="activity-date-text">
+        <% if @activity.starts_at.present? %>
+          <%= @activity.starts_at.strftime("%A %d %b") %>
+          <span class="mx-1">-</span>
+          <%= @activity.starts_at.strftime("%-I") %>
+        <% end %>
+
+        <% if @activity.ends_at.present? %>
+          <span> - <%= @activity.ends_at.strftime("%-I %p") %></span>
+        <% end %>
+      </div>
+
+      <i class="fa-regular fa-calendar"></i>
+    </div>
+
+    <!-- Associated Groups -->
+    <div class="associated-groups-section">
+
+      <h2 class="associated-groups-title">
+        Associated Groups
+      </h2>
+
+      <% if @activity.groups.any? %>
+
+        <ul class="associated-groups-list">
+
+          <% @activity.groups.each do |group| %>
+
+            <li class="associated-group-item">
+
+              <div class="group-name">
+                <i class="fa-solid fa-users me-2"></i>
+                <%= group.name %>
+              </div>
+
+              <%= link_to "Remove",
+                          remove_group_activity_path(
+                            @activity,
+                            group_id: group.id
+                          ),
+                          class: "remove-group-link",
+                          data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "Remove this group from the activity?"
+                          } %>
+
+            </li>
+
+          <% end %>
+
+        </ul>
+
+      <% else %>
+
+        <div class="empty-groups">
+          <i class="fa-solid fa-users"></i>
+          <p>No groups associated with this activity yet.</p>
+        </div>
+
+      <% end %>
+
+    </div>
+
+    <div class="activity-actions">
+
+      <%= render "activities/add_to_groups_modal",
+                 activity: @activity,
+                 groups: @groups %>
+
+      <%= render "shared/delete_button",
+                 text: "Delete activity",
+                 path: activity_path(@activity) %>
+
+    </div>
+
+    <div class="activity-back-wrapper">
+
+      <%= link_to activities_path,
+                  class: "activity-back-button" do %>
+
+        <i class="fa-solid fa-arrow-left me-2"></i>
+        Back to activities
+
+      <% end %>
+
+    </div>
+
+  </div>
+</div>
