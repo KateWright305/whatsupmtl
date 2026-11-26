@@ -1,0 +1,7 @@
+<div>
+  <%= tool["name"] %>
+  <%= form_with model: @activity do |form| %>
+    <%= form.hidden_field :name, value: tool["name"] %>
+    <%= form.submit %>
+  <% end %>
+</div>
