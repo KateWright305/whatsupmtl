@@ -1,5 +1,6 @@
-<% if message.role == "tool" %>
+<% if message.tool_result? %>
 <%= render partial: "messages/activity_tool_call", locals: {tool: JSON.parse(message.content)} %>
+<% elsif message.tool_call? || message.role == "system" %>
 <% else %>
   <div class="d-flex flex-column mb-3 <%= message.role == "user" ? "align-items-end" : "align-items-start" %>">
     <small class="text-muted mb-1">
