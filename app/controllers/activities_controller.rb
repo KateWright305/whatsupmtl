@@ -1,20 +1,21 @@
 class ActivitiesController < ApplicationController
   def index
-    @activities = Activity.all
+    @activities = current_user.activities
     @chat = Chat.new
   end
 
   def show
-    @activity = Activity.find(params[:id])
-    @groups = Group.all
+    @activity = current_user.activities.find(params[:id])
+    @groups = current_user.groups
   end
 
   def new
-    @activity = Activity.new
+    @activity = current_user.activities.build
   end
 
   def create
-    @activity = Activity.new(activity_params)
+    @activity = current_user.activities.build(activity_params)
+
     if @activity.save
       redirect_to activity_path(@activity)
     else
@@ -23,14 +24,14 @@ class ActivitiesController < ApplicationController
   end
 
   def add_to_groups
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
     @groups = Group.all
 
     @selected_group_ids = @activity.groups.pluck(:id)
   end
 
   def save_groups
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
 
     group_ids = params[:group_ids] || []
 
@@ -41,7 +42,7 @@ class ActivitiesController < ApplicationController
   end
 
   def remove_group
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
     @group = Group.find(params[:group_id])
 
     @activity.groups.delete(@group)
@@ -51,7 +52,7 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
     @activity.destroy
 
     redirect_to activities_path, notice: "Activity successfully deleted."

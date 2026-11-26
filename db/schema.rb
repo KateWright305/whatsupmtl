@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_25_161640) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_221338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_161640) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
   create_table "activity_groups", force: :cascade do |t|
@@ -102,6 +104,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_161640) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -313,12 +317,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_25_161640) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activities", "users"
   add_foreign_key "activity_groups", "activities"
   add_foreign_key "activity_groups", "groups"
   add_foreign_key "activity_types", "types"
   add_foreign_key "chats", "ruby_llm_models"
-  add_foreign_key "group_activities", "activities"
   add_foreign_key "group_activities", "groups"
+  add_foreign_key "groups", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "preferences", "types"
   add_foreign_key "preferences", "users"

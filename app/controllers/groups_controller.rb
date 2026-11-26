@@ -1,35 +1,40 @@
 class GroupsController < ApplicationController
   def index
-    @groups = Group.includes(:activities).order(created_at: :desc)
-    @activities = Activity.all
+  #@groups = Group.includes(:activities).order(created_at: :desc)
+    @groups = current_user.groups
+    @activities = current_user.activities
   end
 
   def new
-    @group = Group.new
+    @group = current_user.groups.build
   end
 
   # POST /groups
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.build(group_params)
 
     if @group.save
       redirect_to groups_path, notice: "Group successfully created."
     else
+      @activities = current_user.activities
       render :new, status: :unprocessable_entity
     end
   end
 
   def show
-    @group = Group.includes(:activities).find(params[:id])
-    @activities = Activity.where.not(id: @group.activities.ids)
+  #@group = Group.includes(:activities).find(params[:id])
+  # @activities = Activity.where.not(id: @group.activities.ids)
+    @group = current_user.groups.find(params[:id])
+    @activities = current_user.activities
   end
 
   def edit
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
+    @activities = current_user.activities
   end
 
   def update
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
 
     if @group.update(group_params)
       redirect_to @group, notice: "Group successfully updated."
@@ -39,11 +44,11 @@ class GroupsController < ApplicationController
   end
 
   def add_activity
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
 
     activity_ids = params[:activity_ids] || []
 
-    activities = Activity.where(id: activity_ids)
+    activities = current_user.activities.where(id: activity_ids)
 
     activities.each do |activity|
       unless @group.activities.exists?(id: activity.id)
@@ -55,8 +60,9 @@ class GroupsController < ApplicationController
   end
 
   def remove_activity
-    @group = Group.find(params[:id])
-    @activity = Activity.find(params[:activity_id])
+    @group = current_user.groups.find(params[:id])
+
+    @activity = current_user.activities.find(params[:activity_id])
 
     @group.activities.delete(@activity)
 
@@ -64,7 +70,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
     @group.destroy
 
     redirect_to groups_path, notice: "Group successfully deleted."
@@ -73,7 +79,7 @@ class GroupsController < ApplicationController
   private
 
   def set_group
-    @group = Group.find(params[:id])
+    @group = current_user.groups.find(params[:id])
   end
 
   def group_params
