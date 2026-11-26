@@ -1,0 +1,33 @@
+<div class="simple-calendar d-flex flex-column gap-3">
+  <div class="calendar-heading">
+
+    <nav class="d-flex justify-content-center align-items-center gap-4">
+
+      <%= link_to calendar.url_for_previous_view,
+          class: "calendar-arrow",
+          aria: { label: "Previous week" } do %>
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      <% end %>
+
+      <span class="fw-medium">
+        <%= date_range.first.strftime("%d %b") %> -
+        <%= date_range.last.strftime("%d %b") %>
+      </span>
+
+      <%= link_to calendar.url_for_next_view,
+          class: "calendar-arrow",
+          aria: { label: "Next week" } do %>
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      <% end %>
+
+    </nav>
+  </div>
+
+  <div class="calendar-days d-flex flex-column">
+    <% date_range.each do |day| %>
+      <div class="calendar-day">
+        <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
+      </div>
+    <% end %>
+  </div>
+</div>

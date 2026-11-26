@@ -1,0 +1,50 @@
+.weekly-planner {
+  .calendar-heading {
+    padding: 12px 0;
+  }
+
+  .calendar-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    color: $primary;
+    text-decoration: none;
+
+    &:hover {
+      background-color: rgba($primary, 0.08);
+    }
+  }
+
+  .calendar-day {
+    padding: 12px 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .day-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    background-color: $gray-200;
+    border-radius: 8px;
+
+    &.current-day {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  .empty-day {
+    margin: 0 0 0 46px;
+  }
+}
