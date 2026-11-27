@@ -1,3 +1,5 @@
+<%= turbo_stream_from @chat %>
+
 <div class="container my-4" style="max-width: 700px;">
   <div class="card shadow-sm">
 
@@ -6,7 +8,7 @@
       <%= render "shared/button", text: "Go Back", path: chats_path %>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" id="messages">
       <% @chat.messages.each do |message| %>
         <%= render "messages/message", message: message %>
       <% end %>
