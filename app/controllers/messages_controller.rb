@@ -14,17 +14,15 @@ class MessagesController < ApplicationController
       Use the web search tool to find activities based on user input.
 
       Format:
-      You have access to a tool that returns activities in a structured format,
-      but always convert raw timestamps into human-readable dates and times before
-      displaying them to the user.
+      You have access to a tool that returns activities in a structured format.
       Use this to return results.
       Keep your conversational responses clear, friendly and concise.
-
-      When the user wants to add a suggested activity to their calendar, it will
-      get saved in the database. Therefore it must have a date and time. If the
-      activity doesn't have a set date/time then make a suggestion in the format
-      and let the user know that you are making a suggestion.
       Suggest three activities at a time.
+
+      Always use Montreal's local timezone (America/Toronto).
+      Account for daylight saving time.
+      Return structured datetime values in ISO 8601 format with the correct
+      timezone offset.
   PROMPT
 
   def create
