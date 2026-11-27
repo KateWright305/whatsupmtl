@@ -7,7 +7,11 @@ class Activity < ApplicationRecord
   has_many :activity_groups, dependent: :destroy
   has_many :groups, through: :activity_groups
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: {
+    scope: [:user_id, :starts_at],
+    case_sensitive: false,
+    message: "Activity is already in your calendar!"
+  }
   validates :description, presence: true
   validates :url, presence: true
   validates :location, presence: true
