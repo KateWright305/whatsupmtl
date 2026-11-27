@@ -20,8 +20,14 @@ class MessagesController < ApplicationController
 
       Format:
       You have access to a tool that returns activities in a structured format.
-      Use this to return results
+      Use this to return results.
       Keep your conversational responses clear, friendly and concise.
+      Suggest three activities at a time.
+
+      Always use Montreal's local timezone (America/Toronto).
+      Account for daylight saving time.
+      Return structured datetime values in ISO 8601 format with the correct
+      timezone offset.
   PROMPT
 
   def create
