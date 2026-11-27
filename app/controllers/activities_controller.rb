@@ -15,9 +15,12 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = current_user.activities.build(activity_params)
-
     if @activity.save
-      redirect_to activity_path(@activity)
+      if turbo_frame_request?
+        render partial: "activities/saved", locals: { activity: @activity }
+      else
+        redirect_to activity_path(@activity)
+      end
     else
       redirect_back fallback_location: chats_path, alert: @activity.errors.map(&:message).to_sentence
     end

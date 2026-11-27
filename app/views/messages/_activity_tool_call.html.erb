@@ -1,28 +1,32 @@
-<div>
-  <%= tool["name"] %>
-  <p>
-    <%= tool["location"] %> ·
-    <% if tool["starts_at"].present? %>
-      <%= Time.zone.parse(tool["starts_at"])
-          .strftime("%-d %B, %-I:%M%P").sub(":00", "") %>
-    <% else %>
-      Date to be confirmed
+<% if tool["name"].present? %>
+  <div>
+    <%= tool["name"] %>
+    <p>
+      <%= tool["location"] %> ·
+      <% if tool["starts_at"].present? %>
+        <%= Time.zone.parse(tool["starts_at"])
+            .strftime("%-d %B, %-I:%M%P").sub(":00", "") %>
+      <% else %>
+        Date to be confirmed
+      <% end %>
+      · $ <%= tool["price"] %>
+    </p>
+    <p><%= tool["short_description"] %></p>
+    <%= turbo_frame_tag "save_activity_#{tool["name"].parameterize}" do %>
+      <%= simple_form_for Activity.new, url: activities_path do |form| %>
+        <%= form.input :name, as: :hidden, input_html: { value: tool["name"] } %>
+        <%= form.input :description, as: :hidden, input_html: { value: tool["description"] } %>
+        <%= form.input :url, as: :hidden, input_html: { value: tool["url"] } %>
+        <%= form.input :location, as: :hidden, input_html: { value: tool["location"] } %>
+        <%= form.input :price, as: :hidden, input_html: { value: tool["price"] } %>
+        <%= form.input :img, as: :hidden, input_html: { value: tool["img"] } %>
+        <%= form.input :starts_at, as: :hidden, input_html: { value: tool["starts_at"] } %>
+        <%= form.input :ends_at, as: :hidden, input_html: { value: tool["ends_at"] } %>
+        <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
+          <%= link_to "Visit website", tool["url"], target: "_blank", class: "btn btn-outline-secondary px-4" %>
+          <%= form.button :submit, "Save activity", class: "btn btn-primary px-4" %>
+        </div>
+      <% end %>
     <% end %>
-    · $ <%= tool["price"] %>
-  </p>
-  <p><%= tool["short_description"] %></p>
-  <%= simple_form_for Activity.new, url: activities_path do |form| %>
-    <%= form.input :name, as: :hidden, input_html: { value: tool["name"] } %>
-    <%= form.input :description, as: :hidden, input_html: { value: tool["description"] } %>
-    <%= form.input :url, as: :hidden, input_html: { value: tool["url"] } %>
-    <%= form.input :location, as: :hidden, input_html: { value: tool["location"] } %>
-    <%= form.input :price, as: :hidden, input_html: { value: tool["price"] } %>
-    <%= form.input :img, as: :hidden, input_html: { value: tool["img"] } %>
-    <%= form.input :starts_at, as: :hidden, input_html: { value: tool["starts_at"] } %>
-    <%= form.input :ends_at, as: :hidden, input_html: { value: tool["ends_at"] } %>
-    <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
-      <%= link_to "Visit website", tool["url"], target: "_blank", class: "btn btn-outline-secondary px-4" %>
-      <%= form.button :submit, "Save activity", class: "btn btn-primary px-4" %>
-    </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
