@@ -8,7 +8,7 @@ class Activity < ApplicationRecord
   has_many :groups, through: :activity_groups
 
   validates :name, presence: true, uniqueness: {
-    scope: [:user_id, :starts_at],
+    scope: %i[user_id starts_at],
     case_sensitive: false,
     message: "Activity is already in your calendar!"
   }
@@ -16,5 +16,5 @@ class Activity < ApplicationRecord
   validates :url, presence: true
   validates :location, presence: true
   validates :starts_at, presence: true
-  validates :ends_at, presence: true
+  # validates :ends_at, presence: true
 end

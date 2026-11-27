@@ -16,8 +16,10 @@
 
       <p class="activity-meta text-muted small mb-1">
         <i class="fa-regular fa-clock"></i>
-        <%= activity.starts_at.strftime("%H:%M") %> -
-        <%= activity.ends_at.strftime("%H:%M") %>
+        <%= activity.starts_at.strftime("%H:%M") %>
+          <% if activity.ends_at.present? %>
+            - <%= activity.ends_at.strftime("%H:%M") %>
+          <% end %>
       </p>
 
       <p class="activity-meta text-muted small mb-0">
