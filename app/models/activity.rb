@@ -1,4 +1,6 @@
 class Activity < ApplicationRecord
+  belongs_to :user
+
   has_many :activity_types, dependent: :destroy
   has_many :types, through: :activity_types
   has_one_attached :photo
