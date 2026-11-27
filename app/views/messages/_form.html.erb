@@ -4,7 +4,7 @@
       <div class="flex-grow-1">
         <%= f.input :content, as: :string, label: false, placeholder: "Descrive your activity" %>
       </div>
-      <%= f.button :submit, "Send", class: "btn btn-primary" %>
+      <%= f.button :submit, "Send", class: "btn btn-primary", data: { turbo_submits_with: "Searching…" } %>
     </div>
   <% end %>
 <% end %>

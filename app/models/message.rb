@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
   acts_as_message
 
-  after_create_commit :broadcast_message
+  after_save_commit :broadcast_message
 
   private
 
