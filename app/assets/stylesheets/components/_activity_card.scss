@@ -1,6 +1,8 @@
 // Small activity card to display in calendar
+// And activity card to display in the groups list
 
-.activity-card {
+.activity-card,
+.group-card {
   overflow: hidden;
   border: none;
   border-radius: 12px;
@@ -14,6 +16,18 @@
 
   .card-body {
     min-width: 0;
+  }
+}
+
+.group-card {
+  .card-header {
+    background-color: $white;
+    border-bottom: none;
+    padding: 16px;
+  }
+
+  .btn {
+    border-radius: 8px;
   }
 }
 
