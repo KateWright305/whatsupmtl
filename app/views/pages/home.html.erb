@@ -1,6 +1,72 @@
-<h1>WhatsupMTL</h1>
 
-<p>Discover the best of Montréal, any day of the week.<p>
+<div class="whatsup-home">
 
-<%= link_to "Login", new_user_session_path, class: "nav-link" %>
-<%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+
+          <span class="hero-label">
+            <i class="fa-solid fa-location-dot me-2"></i>
+            Discover Montreal
+          </span>
+
+          <h2 class="hero-title">
+            What's happening
+            <span>in Montreal?</span>
+          </h2>
+
+          <p class="hero-description">
+            Discover exciting activities, explore amazing places
+            and connect with people. Your next adventure starts here.
+          </p>
+
+          <!-- 4 ACTIVITY PHOTOS -->
+          <div class="montreal-activities-gallery">
+
+            <div class="montreal-gallery-item">
+              <%= image_tag "activity_food.jpg",
+                  alt: "Restaurants in Montreal" %>
+              <span>Food & Drinks</span>
+            </div>
+
+            <div class="montreal-gallery-item">
+              <%= image_tag "activity_music.jpg",
+                  alt: "Music and concerts in Montreal" %>
+              <span>Music</span>
+            </div>
+
+            <div class="montreal-gallery-item">
+              <%= image_tag "activity_outdoor.jpg",
+                  alt: "Outdoor activities in Montreal" %>
+              <span>Outdoor</span>
+            </div>
+
+            <div class="montreal-gallery-item">
+              <%= image_tag "activity_nightlife.jpg",
+                  alt: "Nightlife in Montreal" %>
+              <span>Nightlife</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-5">
+          <div class="hero-image-wrapper">
+            <%= image_tag "montreal_home.jpeg",
+                class: "hero-image",
+                alt: "Montreal city" %>
+
+            <div class="hero-image-overlay">
+              <div>
+                <i class="fa-solid fa-compass me-2"></i>
+                Explore Montreal
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
