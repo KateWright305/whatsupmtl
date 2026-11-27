@@ -7,7 +7,7 @@ class CreateActivityTool < RubyLLM::Tool
   parameter :url, description: "URL of the activity", required: true
   parameter :location, description: "Location of the activity", required: true
   parameter :price, description: "Price of the activity", required: true
-  parameter :img, description: "Image URL of the activity",
+  parameter :img, description: "Image URL of the activity"
   parameter :starts_at, description: "Start date and time", required: true
   parameter :ends_at, description: "End date and time", required: true
 
