@@ -11,6 +11,9 @@
     <%= form.input :img, as: :hidden, input_html: { value: tool["img"] } %>
     <%= form.input :starts_at, as: :hidden, input_html: { value: tool["starts_at"] } %>
     <%= form.input :ends_at, as: :hidden, input_html: { value: tool["ends_at"] } %>
-    <%= form.button :submit, "Save activity" %>
+    <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
+      <%= link_to "Website", tool["url"], target: "_blank", class: "btn btn-outline-secondary px-4" %>
+      <%= form.button :submit, "Save activity", class: "btn btn-primary px-4" %>
+    </div>
   <% end %>
 </div>
