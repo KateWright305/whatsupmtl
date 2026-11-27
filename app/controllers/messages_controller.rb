@@ -25,7 +25,11 @@ class MessagesController < ApplicationController
     @chat.with_provider_tools(:web_search)
     @chat.with_tools(CreateActivityTool)
     @chat.ask(message_params[:content])
-    redirect_to chat_path(@chat)
+    if turbo_frame_request?
+      render partial: "messages/form", locals: { chat: @chat, message: Message.new }
+    else
+      redirect_to chat_path(@chat)
+    end
   end
 
   private
