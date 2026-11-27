@@ -13,6 +13,11 @@ class MessagesController < ApplicationController
       activities in Montreal.
       Use the web search tool to find activities based on user input.
 
+      User preferences:
+      You have access to a UserPreferencesTool.
+      Use this tool when the user's preferences can help personalize your answer.
+      If no preferences are available, provide general recommendations.
+
       Format:
       You have access to a tool that returns activities in a structured format,
       but always convert raw timestamps into human-readable dates and times before
@@ -32,8 +37,16 @@ class MessagesController < ApplicationController
     @chat.with_instructions(SYSTEM_PROMPT)
     @chat.with_provider_tools(:web_search)
     @chat.with_tools(CreateActivityTool)
+    @chat.with_tools(
+      UserPreferencesTool.new(user: current_user)
+    )
+
     @chat.ask(message_params[:content])
-    redirect_to chat_path(@chat)
+    if turbo_frame_request?
+      render partial: "messages/form", locals: { chat: @chat, message: Message.new }
+    else
+      redirect_to chat_path(@chat)
+    end
   end
 
   private
