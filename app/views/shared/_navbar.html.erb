@@ -1,45 +1,123 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+
+<!-- NAVBAR -->
+<nav class="whatsup-navbar navbar navbar-expand-lg">
+
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <span class="brand-icon">
+        <i class="fa-solid fa-location-dot"></i>
+      </span>
+
+      <span class="brand-text">
+        WhatsUp<span class="brand-highlight">MTL</span>
+      </span>
+
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler custom-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#whatsupNavbar"
+            aria-controls="whatsupNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+      <i class="fa-solid fa-bars"></i>
+
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Activities", activities_path , class: "nav-link"%>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Groups", groups_path , class: "nav-link"%>
-          </li>
+    <div class="collapse navbar-collapse" id="whatsupNavbar">
 
-          <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "My Profile", profile_path, class: "dropdown-item" %>
-              <%= link_to "Preferences", edit_preferences_path, class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Sign up", new_user_registration_path, class: "nav-link"  %>
-          </li>
-        <% end %>
+      <ul class="navbar-nav mx-auto nav-main">
+        <li class="nav-item">
+          <%= link_to root_path, class: "nav-link" do %>
+
+            Home
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to activities_path, class: "nav-link" do %>
+            Activities
+          <% end %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to groups_path, class: "nav-link" do %>
+            Groups
+          <% end %>
+        </li>
       </ul>
+
+      <div class="navbar-user-section">
+
+        <% if user_signed_in? %>
+          <div class="dropdown">
+
+            <button class="user-dropdown-btn dropdown-toggle"
+                    type="button"
+                    id="navbarUserDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+
+              <div class="user-avatar">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <span>My account</span>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end custom-user-menu"
+                aria-labelledby="navbarUserDropdown">
+
+              <li>
+                <%= link_to profile_path, class: "dropdown-item" do %>
+                  <i class="fa-solid fa-user me-2"></i>
+                  My Profile
+                <% end %>
+              </li>
+
+              <li>
+                <%= link_to edit_preferences_path, class: "dropdown-item" do %>
+                  <i class="fa-solid fa-sliders me-2"></i>
+                  Preferences
+                <% end %>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li>
+                <%= link_to destroy_user_session_path,
+                    data: { turbo_method: :delete },
+                    class: "dropdown-item text-danger" do %>
+
+                  <i class="fa-solid fa-right-from-bracket me-2"></i>
+                  Log out
+
+                <% end %>
+              </li>
+            </ul>
+          </div>
+
+
+        <% else %>
+
+          <div class="navbar-auth-buttons">
+            <%= link_to "Log in",
+                new_user_session_path,
+                class: "btn-login" %>
+
+            <%= link_to new_user_registration_path,
+                class: "btn-signup" do %>
+
+              Sign up
+              <i class="fa-solid fa-arrow-right ms-2"></i>
+            <% end %>
+          </div>
+
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>

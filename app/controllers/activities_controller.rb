@@ -19,7 +19,7 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to activity_path(@activity)
     else
-      render :new, status: :unprocessable_entity
+      redirect_back fallback_location: chats_path, alert: @activity.errors.map(&:message).to_sentence
     end
   end
 
